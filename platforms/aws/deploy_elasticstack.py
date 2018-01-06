@@ -38,4 +38,4 @@ print("slepping 60 sec to allow instances to come up")
 time.sleep(60)
 
 print('destroying Terraform plan')
-tf.destroy(no_color=IsFlagged, var={'aws_access_key':'access_key', 'aws_secret_key':'secret_key'}, _force)
+tf.destroy(no_color=IsFlagged, var={'aws_access_key':'access_key', 'aws_secret_key':'secret_key'})
