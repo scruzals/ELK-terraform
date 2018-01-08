@@ -4,7 +4,8 @@ Deploy an ELK stack on Azure or AWS using Terraform and Fabric
 # Getting Started
 
 set environment variables 
-Azure Powershell (windows and linux. set in ps profile)
+
+Azure Powershell 
 ``````````````
 $env:sid = <subscription id>
 $env:cid = <client id>
