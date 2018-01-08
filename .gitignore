@@ -11,3 +11,7 @@
 # keys
 /resources/testadmin.pub
 id_rsa.pub
+
+/platforms/aws/py-elk-out
+/platforms/aws/aws-elk-plan
+/platforms/azure/ELK-plan
