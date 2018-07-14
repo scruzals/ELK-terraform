@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "network" {
   name     = "production"
-  location = "central US"
+  location = "${var.region}"
 }
 
 # Create a virtual network within the resource group
