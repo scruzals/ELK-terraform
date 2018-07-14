@@ -2,7 +2,7 @@ resource "azurerm_availability_set" "data" {
   name                = "data"
   location            = "${var.region}"
   resource_group_name = "${var.resource_group_name}"
-  managed = "true"
+  managed             = "true"
 
   tags = "${merge(map(
     "Role", "data"),
@@ -10,15 +10,13 @@ resource "azurerm_availability_set" "data" {
 }
 
 resource "azurerm_virtual_machine" "elastic_data" {
-  
   count                 = "3"
   name                  = "es-data-${count.index}"
-  location              = "westus"
+  location              = "${var.region}"
   resource_group_name   = "${var.resource_group_name}"
   network_interface_ids = ["${var.network_interface_ids[count.index]}"]
   vm_size               = "${var.vmsize}"
-  availability_set_id = "${azurerm_availability_set.data.id}"
-
+  availability_set_id   = "${azurerm_availability_set.data.id}"
 
   storage_image_reference {
     publisher = "OpenLogic"
@@ -60,5 +58,4 @@ resource "azurerm_virtual_machine" "elastic_data" {
   tags {
     environment = "staging"
   }
-  
 }

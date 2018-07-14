@@ -1,9 +1,8 @@
-
 resource "azurerm_availability_set" "kibana" {
   name                = "kibana"
   location            = "${var.region}"
   resource_group_name = "${var.resource_group_name}"
-  managed = "true"
+  managed             = "true"
 
   tags = "${merge(map(
     "Role", "kibana"),
@@ -11,15 +10,13 @@ resource "azurerm_availability_set" "kibana" {
 }
 
 resource "azurerm_virtual_machine" "elastic_kibana" {
-  
   count                 = "2"
   name                  = "es-kibana-${count.index}"
-  location              = "westus"
+  location              = "${var.region}"
   resource_group_name   = "${var.resource_group_name}"
   network_interface_ids = ["${var.network_interface_ids[count.index]}"]
   vm_size               = "${var.vmsize}"
-  availability_set_id = "${azurerm_availability_set.kibana.id}"
-
+  availability_set_id   = "${azurerm_availability_set.kibana.id}"
 
   storage_image_reference {
     publisher = "OpenLogic"
@@ -61,5 +58,4 @@ resource "azurerm_virtual_machine" "elastic_kibana" {
   tags = "${merge(map(
     "Role", "kibana"),
     var.extra_tags)}"
-  
 }

@@ -1,9 +1,8 @@
-
 resource "azurerm_availability_set" "master" {
   name                = "master"
   location            = "${var.region}"
   resource_group_name = "${var.resource_group_name}"
-  managed = "true"
+  managed             = "true"
 
   tags = "${merge(map(
     "Role", "master"),
@@ -11,15 +10,13 @@ resource "azurerm_availability_set" "master" {
 }
 
 resource "azurerm_virtual_machine" "elastic_master" {
-  
   count                 = "3"
   name                  = "es-master-${count.index}"
-  location              = "westus"
+  location              = "${var.region}"
   resource_group_name   = "${var.resource_group_name}"
   network_interface_ids = ["${var.network_interface_ids[count.index]}"]
   vm_size               = "${var.vmsize}"
-  availability_set_id = "${azurerm_availability_set.master.id}"
-
+  availability_set_id   = "${azurerm_availability_set.master.id}"
 
   storage_image_reference {
     publisher = "OpenLogic"
@@ -46,7 +43,7 @@ resource "azurerm_virtual_machine" "elastic_master" {
   os_profile {
     computer_name  = "es-master-${count.index}"
     admin_username = "testadmin"
-    admin_password=""
+    admin_password = ""
   }
 
   os_profile_linux_config {
@@ -61,5 +58,4 @@ resource "azurerm_virtual_machine" "elastic_master" {
   tags = "${merge(map(
     "Role", "master"),
     var.extra_tags)}"
-  
 }

@@ -1,6 +1,7 @@
 # Compiled files
 *.tfstate
 *.tfstate.backup
+fabfile.pyc
 
 # Module directory
 .terraform/
@@ -11,7 +12,9 @@
 # keys
 /resources/testadmin.pub
 id_rsa.pub
+terraform_west.pem
 
 /platforms/aws/py-elk-out
 /platforms/aws/aws-elk-plan
 /platforms/azure/ELK-plan
+
